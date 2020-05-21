@@ -7,8 +7,7 @@ public class LoadingSceneIntegration {
     public static int otherScene = -2;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void InitLoadingScene()
-    {
+    static void InitLoadingScene() {
         Debug.Log("InitLoadingScene()");
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (sceneIndex == 0) return;

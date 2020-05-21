@@ -3,14 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PersonBehavior : MonoBehaviour {
+    
+    public CharacterController2D controller;
 
-    // Start is called before the first frame update
+	public float runSpeed = 40f;
+
+	float horizontalMove = 0f;
+	bool jump = false;
+
     void Start() {
-        gameObject.GetComponent<Renderer>().material.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-    }
-
-    // Update is called once per frame
-    void Update() {
         
     }
+
+    void Update() {
+        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+		if (Input.GetButtonDown("Jump")) {
+			jump = true;
+		}
+
+        gameObject.GetComponent<Animator>().SetBool("Run", Mathf.Abs(horizontalMove) > 0);
+    }
+
+    void FixedUpdate() {
+        controller.Move(horizontalMove * Time.fixedDeltaTime, jump);
+		jump = false;
+    }
+
 }
